@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../appwrite/services/authentication";
 import "./RegisterForm.css";
 
@@ -15,7 +15,7 @@ function RegisterForm() {
       if (response) {
         navigate("/");
       } else {
-        navigate("/login");
+        navigate("/signup");
       }
     });
   }, []);
@@ -109,7 +109,13 @@ function RegisterForm() {
               className="input-field"
               style={{ textAlign: "center", marginTop: "25px" }}
             >
-              <p>Go for login </p>
+              <p>
+                Go for{" "}
+                <Link to="/login" style={{ color: "purple" }}>
+                  {" "}
+                  login
+                </Link>{" "}
+              </p>
             </div>
           </form>
         </div>
