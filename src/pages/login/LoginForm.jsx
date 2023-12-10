@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../appwrite/services/authentication";
 import "./Login.css";
 
@@ -96,7 +96,9 @@ function LoginForm() {
               className="input-field"
               style={{ textAlign: "center", marginTop: "25px" }}
             >
-              <p>Go for login </p>
+              <p>
+                Go for <Link to="/signup"> signup</Link>{" "}
+              </p>
             </div>
           </form>
         </div>
