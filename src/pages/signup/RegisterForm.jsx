@@ -101,7 +101,10 @@ function RegisterForm() {
             >
               <p>
                 Go for{" "}
-                <Link to="/login" style={{ color: "purple" }}>
+                <Link
+                  to="/login"
+                  style={{ fontWeight: "bold", textDecoration: "none" }}
+                >
                   {" "}
                   login
                 </Link>{" "}
