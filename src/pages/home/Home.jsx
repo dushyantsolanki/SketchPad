@@ -15,7 +15,7 @@ const Home = () => {
     } else {
       navigate("/login");
     }
-  }, []);
+  }, [userData]);
 
   return (
     <>
