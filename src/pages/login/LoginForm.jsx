@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authcontext/authContext";
 import auth from "../../appwrite/services/authentication";
 import "./Login.css";
 
 function LoginForm() {
+  const { userData, setUserData } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  useEffect(() => {
-    const currentLogin = auth.getLoginAccount();
-    currentLogin.then((response) => {
-      if (response) {
-        navigate("/");
-      } else {
-        navigate("/login");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (userData) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("/signup");
+  //     console.log(userData);
+  //   }
+  // }, []);
   const validateForm = () => {
     const errors = [];
 
@@ -38,6 +38,7 @@ function LoginForm() {
       // Submit form data to backend
       const loginData = await auth.loginAccount({ email, password });
       if (loginData) {
+        setUserData(loginData);
         navigate("/");
         window.alert("you are sucsessfully login");
       } else {

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../appwrite/services/authentication";
+import { useAuth } from "../../context/authcontext/authContext";
 import "./RegisterForm.css";
 
 function RegisterForm() {
   const navigate = useNavigate();
+  const { userData } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   useEffect(() => {
-    const currentLogin = auth.getLoginAccount();
-    currentLogin.then((response) => {
-      if (response) {
-        navigate("/");
-      } else {
-        navigate("/signup");
-      }
-    });
+    if (userData) {
+      // navigate("/login");
+    } else {
+      // navigate("/signup");
+    }
   }, []);
   const validateForm = () => {
     const errors = [];
