@@ -11,13 +11,7 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  useEffect(() => {
-    if (userData) {
-      // navigate("/login");
-    } else {
-      // navigate("/signup");
-    }
-  }, []);
+
   const validateForm = () => {
     const errors = [];
     if (!name) {
