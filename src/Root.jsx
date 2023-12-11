@@ -10,6 +10,7 @@ import LoginForm from "./pages/login/LoginForm";
 import Home from "./pages/home/Home";
 import { AuthProvider } from "./context/authcontext/authContext";
 import auth from "./appwrite/services/authentication";
+import ErrorPage from "./pages/404error/ErrorPage";
 
 function Root() {
   const [userData, setUserData] = useState(null);
@@ -37,6 +38,10 @@ function Root() {
         {
           path: "login",
           element: !userData ? <LoginForm /> : <Navigate to="/" />,
+        },
+        {
+          path: "*",
+          element: <ErrorPage />,
         },
       ],
     },
