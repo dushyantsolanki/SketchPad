@@ -90,7 +90,14 @@ function LoginForm() {
               style={{ textAlign: "center", marginTop: "25px" }}
             >
               <p>
-                Go for <Link to="/signup"> signup</Link>{" "}
+                Go for{" "}
+                <Link
+                  to="/signup"
+                  style={{ fontWeight: "bold", textDecoration: "none" }}
+                >
+                  {" "}
+                  signup
+                </Link>{" "}
               </p>
             </div>
           </form>
