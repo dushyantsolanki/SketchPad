@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navigate,
   RouterProvider,
@@ -14,10 +14,13 @@ import auth from "./appwrite/services/authentication";
 function Root() {
   const [userData, setUserData] = useState(null);
 
-  auth.getLoginAccount().then((response) => {
-    setUserData(response);
+  useEffect(() => {
+    auth.getLoginAccount().then((response) => {
+      setUserData(response);
+    });
+    console.log(userData);
   });
-  console.log(userData);
+
   const router = createBrowserRouter([
     {
       path: "/",
