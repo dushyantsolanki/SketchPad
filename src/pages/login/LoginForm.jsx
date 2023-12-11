@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authcontext/authContext";
 import auth from "../../appwrite/services/authentication";
@@ -11,14 +11,6 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  // useEffect(() => {
-  //   if (userData) {
-  //     navigate("/");
-  //   } else {
-  //     navigate("/signup");
-  //     console.log(userData);
-  //   }
-  // }, []);
   const validateForm = () => {
     const errors = [];
 
