@@ -20,7 +20,7 @@ function Root() {
       setUserData(response);
     });
     console.log(userData);
-  });
+  }, []);
 
   const router = createBrowserRouter([
     {
