@@ -30,6 +30,8 @@ function LoginForm() {
       // Submit form data to backend
       const loginData = await auth.loginAccount({ email, password });
       if (loginData) {
+        // const loginDataUrl = await auth.loginWithMagicUrl({ email });
+        // console.log(loginDataUrl);
         setUserData(loginData);
         navigate("/");
         window.alert("you are sucsessfully login");
