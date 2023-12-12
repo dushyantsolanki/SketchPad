@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import auth from "../../appwrite/services/authentication";
 import { useAuth } from "../../context/authcontext/authContext";
 import { Tldraw } from "@tldraw/tldraw";
+import "@tldraw/tldraw/tldraw.css";
 
 const Home = () => {
   const { userData } = useAuth();
@@ -10,14 +11,18 @@ const Home = () => {
 
   useEffect(() => {
     if (!userData) {
-      console.log(userData);
+      // console.log(userData);
       navigate("/login");
     }
+    // console.log(userData);
   }, []);
 
   return (
     <>
-      <Tldraw />
+      <div style={{ position: "fixed", inset: 0 }}>
+       
+        <Tldraw />
+      </div>
     </>
   );
 };
