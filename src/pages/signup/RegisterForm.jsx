@@ -93,7 +93,9 @@ function RegisterForm() {
               )}
             </div>
 
-            <button type="submit">Sign Up</button>
+            <button type="submit" className="button1">
+              Sign Up
+            </button>
 
             <div
               className="input-field"

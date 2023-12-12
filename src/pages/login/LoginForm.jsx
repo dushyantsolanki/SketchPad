@@ -84,7 +84,9 @@ function LoginForm() {
               )}
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" className="button1">
+              Login
+            </button>
             <div
               className="input-field"
               style={{ textAlign: "center", marginTop: "25px" }}
