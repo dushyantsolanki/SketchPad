@@ -31,7 +31,7 @@ class Authentication {
 
   loginAccount = async ({ email, password }) => {
     try {
-      const loginUser =  await this.account.createEmailSession(email, password);
+      const loginUser = await this.account.createEmailSession(email, password);
       return loginUser;
     } catch (error) {
       console.log("appwrite : authentication :: loginAccount :: ", error);
@@ -49,7 +49,21 @@ class Authentication {
   //   }
   // };
 
-  getLoginAccount =  async () => {
+  loginWithMagicUrl = async ({ email }) => {
+    try {
+      const magicUrl = await this.account.createMagicURLSession(
+        ID.unique(),
+        email,
+        "http://localhost:5173/"
+      );
+      return magicUrl;
+    } catch (error) {
+      console.log("appwrite : authentication ::  loginWithMagicUrl :: ", error);
+      return false;
+    }
+  };
+
+  getLoginAccount = async () => {
     try {
       const loginAccount = await this.account.get();
       return loginAccount;
@@ -57,7 +71,7 @@ class Authentication {
       console.log("appwrite : authentication :: getLoginAccount :: ", error);
       return false;
     }
-}
+  };
 }
 const auth = new Authentication();
 export default auth;
