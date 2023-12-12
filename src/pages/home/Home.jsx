@@ -20,7 +20,6 @@ const Home = () => {
   return (
     <>
       <div style={{ position: "fixed", inset: 0 }}>
-       
         <Tldraw />
       </div>
     </>
