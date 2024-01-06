@@ -3,6 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authcontext/authContext";
 import auth from "../../appwrite/services/authentication";
 import "./Login.css";
+import Input from "../../component/Input";
+
+// here i import a toster for error
+import { toastConfig } from "../../toster";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const { userData, setUserData } = useAuth();
@@ -27,16 +33,13 @@ function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      // Submit form data to backend
       const loginData = await auth.loginAccount({ email, password });
-      if (loginData) {
-        // const loginDataUrl = await auth.loginWithMagicUrl({ email });
-        // console.log(loginDataUrl);
-        setUserData(loginData);
-        navigate("/");
-        window.alert("you are sucsessfully login");
+      if (loginData?.flag == false) {
+        toast.error(`${loginData.message}`, toastConfig);
+        setUserData(null);
       } else {
-        window.alert("Somthing wrong");
+        window.localStorage.setItem("users", loginData);
+        setUserData(loginData);
       }
 
       console.log(
@@ -48,6 +51,7 @@ function LoginForm() {
   return (
     <>
       <div className="container2">
+        <ToastContainer />
         <div className="form-container2">
           <h1>Login To Sketchpad</h1>
 
@@ -55,13 +59,14 @@ function LoginForm() {
             <div className="input-field">
               <label htmlFor="email">Email:</label>
 
-              <input
+              <Input
                 type="text"
                 id="email"
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+
               {errors.includes("Invalid email address") && (
                 <span className="error">Invalid email address</span>
               )}
@@ -70,7 +75,7 @@ function LoginForm() {
             <div className="input-field">
               <label htmlFor="password">Password:</label>
 
-              <input
+              <Input
                 type="password"
                 id="password"
                 name="password"
