@@ -9,17 +9,13 @@ import RegisterForm from "./pages/signup/RegisterForm";
 import LoginForm from "./pages/login/LoginForm";
 import Home from "./pages/home/Home";
 import { AuthProvider } from "./context/authcontext/authContext";
-import auth from "./appwrite/services/authentication";
 import ErrorPage from "./pages/404error/ErrorPage";
 
 function Root() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    auth.getLoginAccount().then((response) => {
-      setUserData(response);
-    });
-    console.log(userData);
+    setUserData(window.localStorage.getItem("users"));
   }, []);
 
   const router = createBrowserRouter([
@@ -29,7 +25,7 @@ function Root() {
       children: [
         {
           path: "",
-          element: <Home />,
+          element: !userData ? <Navigate to="login" /> : <Home />,
         },
         {
           path: "signup",
