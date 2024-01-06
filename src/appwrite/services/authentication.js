@@ -4,10 +4,7 @@ import conf from "../config/config";
 
 class Authentication {
   client = new Client();
-  // appwrite = new Appwrite({
-  //   endpoint: conf.endPoint,
-  //   projectId: conf.projectId,
-  // });
+
   account;
   constructor() {
     this.client.setEndpoint(conf.endPoint).setProject(conf.projectId);
@@ -25,7 +22,7 @@ class Authentication {
       return userAccount;
     } catch (error) {
       console.log("appwrite : authentication :: createAccount :: ", error);
-      return false;
+      return { code: error.code, message: error.message, flag: false };
     }
   };
 
@@ -35,19 +32,9 @@ class Authentication {
       return loginUser;
     } catch (error) {
       console.log("appwrite : authentication :: loginAccount :: ", error);
-      return false;
+      return { code: error.code, message: error.message, flag: false };
     }
   };
-
-  // loginWithGoogle = async () => {
-  //   try {
-  //     const userLoginGoogle = await this.appwrite.signInWithSocial("google");
-  //     return userLoginGoogle;
-  //   } catch (error) {
-  //     console.log("appwrite : authentication :: loginWithGoogle :: ", error);
-  //     return false;
-  //   }
-  // };
 
   loginWithMagicUrl = async ({ email }) => {
     try {
@@ -59,7 +46,7 @@ class Authentication {
       return magicUrl;
     } catch (error) {
       console.log("appwrite : authentication ::  loginWithMagicUrl :: ", error);
-      return false;
+      return { code: error.code, message: error.message, flag: false };
     }
   };
 
@@ -69,7 +56,33 @@ class Authentication {
       return loginAccount;
     } catch (error) {
       console.log("appwrite : authentication :: getLoginAccount :: ", error);
-      return false;
+      return { code: error.code, message: error.message, flag: false };
+    }
+  };
+
+  logoutCurrentUser = async () => {
+    try {
+      const logoutAccount = await this.account.deleteSession("current");
+      return logoutAccount;
+    } catch (error) {
+      console.log("appwrite : authentication :: logoutCurrentUSer :: ", error);
+      return { code: error.code, message: error.message, flag: false };
+    }
+  };
+
+  verificationEmailUpdate = async ({ userId, secret }) => {
+    try {
+      const emailData = await this.account.updateMagicURLSession(
+        userId,
+        secret
+      );
+      return emailData;
+    } catch (error) {
+      console.log(
+        "appwrite : authentication :: verificationEmailUpdate :: ",
+        error
+      );
+      return { code: error.code, message: error.message, flag: false };
     }
   };
 }
