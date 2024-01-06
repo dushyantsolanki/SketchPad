@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../appwrite/services/authentication";
 import "./RegisterForm.css";
+import Input from "../../component/Input";
+// here i import a toster for error meaasge display
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toastConfig } from "../../toster";
 
 function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const errors = [];
@@ -30,16 +36,17 @@ function RegisterForm() {
       const accountData = await auth.createAccount({ email, password, name });
       console.log(accountData);
 
-      if (accountData) {
-        window.alert("Account created and welcom to sketchpad faimily");
+      if (accountData?.flag == false) {
+        toast.error(`${accountData.message}`, toastConfig);
       } else {
-        window.alert("somthing wrong please try again");
+        navigate("/login");
       }
     }
   };
   return (
     <>
       <div className="container">
+        <ToastContainer />
         <div className="form-container">
           <h1>Welcome To Sketchpad</h1>
 
@@ -47,13 +54,14 @@ function RegisterForm() {
             <div className="input-field">
               <label htmlFor="name">Name:</label>
 
-              <input
+              <Input
                 type="text"
                 id="name"
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+
               {errors.includes("Name is required") && (
                 <span className="error">Name is required</span>
               )}
@@ -62,7 +70,7 @@ function RegisterForm() {
             <div className="input-field">
               <label htmlFor="email">Email:</label>
 
-              <input
+              <Input
                 type="text"
                 id="email"
                 name="email"
@@ -77,7 +85,7 @@ function RegisterForm() {
             <div className="input-field">
               <label htmlFor="password">Password:</label>
 
-              <input
+              <Input
                 type="password"
                 id="password"
                 name="password"
